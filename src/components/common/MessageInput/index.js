@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 
 import './styles.css';
 
@@ -12,7 +13,7 @@ export default class MessageBox extends Component {
       e.preventDefault()
       if (this.state.text === '') { return }
       console.log(this.state.text);
-      this.props.sendText(this.state.text);
+      this.props.sendText(this.state.text, moment(moment.now()).format('h:mm A'));
       this.setState({
         text: '',
       })

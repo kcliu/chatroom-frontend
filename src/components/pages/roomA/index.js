@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import loremIpsum from 'lorem-ipsum';
+import moment from 'moment';
+
 import MessageBox from '../../common/MessageBox/index.js';
 import MessageInput from '../../common/MessageInput/index.js';
 import Message from '../..//common/Message/index.js';
@@ -14,6 +16,7 @@ const msgGengerator = (count, ids=[]) => {
     // console.log("index:", who);
     return {
       id: ids[who],
+      time: moment(moment.now()).format('h:mm A'),
       text: loremIpsum({
         count: 1,
         units: 'sentences'
@@ -50,12 +53,14 @@ class RoomA extends Component {
     },
   }
 
-  sendText = (id, text) => {
-    return (text) => {
+  sendText = (id, text, time) => {
+    return (text, time) => {
+      console.log("send text:", text, time);
       const newList = [];
       const myMessage = {
         id,
         text,
+        time,
       }
       newList.push(myMessage);
       this.setState({
@@ -109,6 +114,7 @@ class RoomA extends Component {
                 <Message
                   avatar={this.getAvatar(msg.id)}
                   text={msg.text}
+                  time={msg.time}
                   key={i}
                 />
               )

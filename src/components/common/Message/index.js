@@ -15,7 +15,10 @@ export default class MessageBox extends Component {
         <div className="img-wrapper">
           <img src={avatar} alt='avatar'/>
         </div>
-        <div className="message">{props.text}</div>
+        <div className="main-wrapper">
+          <div className="time">{props.time}</div>
+          <div className="message">{props.text}</div>
+        </div>
       </div>
     )
   }
