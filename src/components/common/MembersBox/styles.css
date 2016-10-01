@@ -7,7 +7,7 @@
   min-height: 80px;
   padding: 10px 20px;
 
-  background: gray;
+  background: #ababab;
 
   .total-indicator {
     width: 40px;
@@ -17,8 +17,8 @@
     text-align: center;
     margin-right: 10px;
 
-    background: #5bacdf;
-    color: white;
+    background: #f08080;
+    color: #fffaf0;
   }
 
   .member-wrapper {
