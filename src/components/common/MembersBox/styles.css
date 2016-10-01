@@ -9,6 +9,18 @@
 
   background: gray;
 
+  .total-indicator {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50px;
+    text-align: center;
+    margin-right: 10px;
+
+    background: #5bacdf;
+    color: white;
+  }
+
   .member-wrapper {
     display: flex;
     align-items: center;

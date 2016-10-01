@@ -8,6 +8,7 @@ export default class MembersBox extends Component {
     const { state, props } = this;
     return (
       <div className="members-box-container">
+        <div className="total-indicator">{props.members.length}</div>
         {
           props.members.map(member => {
             return (
