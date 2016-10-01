@@ -12,7 +12,9 @@ export default class MessageBox extends Component {
     const avatar = props.avatar ? props.avatar : state.deafultAvatar;
     return (
       <div className="message-wrapper">
-        <img src={avatar} alt='avatar'/>
+        <div className="img-wrapper">
+          <img src={avatar} alt='avatar'/>
+        </div>
         <div className="message">{props.text}</div>
       </div>
     )

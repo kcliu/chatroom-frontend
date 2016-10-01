@@ -3,10 +3,19 @@
   align-items: center;
   justify-content: flex-start;
   margin: 5px 20px;
-  height: 40px;
+  min-height: 40px;
+
+  .img-wrapper {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    position: relative;
+    width: 40px;
+    min-height: 40px;
+    margin-right: 10px;
+  }
 
   img {
-    margin-right: 10px;
     border-radius: 5px;
   }
 }

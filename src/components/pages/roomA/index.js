@@ -3,57 +3,111 @@ import loremIpsum from 'lorem-ipsum';
 import MessageBox from '../../common/MessageBox/index.js';
 import MessageInput from '../../common/MessageInput/index.js';
 import Message from '../..//common/Message/index.js';
+import MembersBox from '../../common/MembersBox/index.js';
 
 import './styles.css';
 
-const msgGengerator = (ids = []) => {
-  return ids.map(id => {
+const msgGengerator = (count, ids=[]) => {
+  // console.log("msgGengerator:", count, ids);
+  return [...Array(count).keys()].map(idx => {
+    const who = Math.floor(Math.random() * ids.length);
+    // console.log("index:", who);
     return {
-      avatar: `https://api.adorable.io/avatars/40/${id}.png`,
-      text: loremIpsum(),
+      id: ids[who],
+      text: loremIpsum({
+        count: 1,
+        units: 'sentences'
+      }),
+    }
+  })
+}
+
+const makeUser = (count) => {
+  return [...Array(count).keys()].map(user => {
+    const id = loremIpsum({
+      count: 1,
+      units: 'words'
+    })
+    return {
+      id,
+      avatar: `https://api.adorable.io/avatars/10/${id}.png`,
     }
   })
 }
 
 class RoomA extends Component {
   state = {
-    members: [...Array(20).keys()],
+    members: [
+      {
+        id: 'kcliu',
+        avatar: `https://api.adorable.io/avatars/10/kcliu.png`,
+      }
+    ],
     messages: [],
     me: {
-      id: '999',
+      id: 'kcliu',
+      avatar: `https://api.adorable.io/avatars/10/kcliu.png`,
     },
   }
 
-  sendText = (text) => {
-    const newList = [];
-    const myMessage = {
-      avatar: `https://api.adorable.io/avatars/40/${this.state.me.id}.png`,
-      text,
+  sendText = (id, text) => {
+    return (text) => {
+      const newList = [];
+      const myMessage = {
+        id,
+        text,
+      }
+      newList.push(myMessage);
+      this.setState({
+        messages: this.state.messages.concat(newList),
+      })
     }
-    newList.push(myMessage);
+  }
+
+  sendMyText = this.sendText(this.state.me.id)
+
+  addUser = (users) => {
+    // console.log("addUser:", users);
     this.setState({
-      messages: this.state.messages.concat(newList),
+      members: this.state.members.concat(users),
     })
   }
 
-  componentDidMount() {
+  addMessages = (messages) => {
+    // console.log("addMessages:", messages);
     this.setState({
-      messages: this.state.messages.concat(msgGengerator(this.state.members)),
+      messages: this.state.messages.concat(messages),
     })
+  }
+
+  getAvatar = (id) => {
+    return this.state.members.filter(member => member.id === id)[0].avatar;
+  }
+
+  componentWillMount() {
+    this.addUser(makeUser(10));
+  }
+  componentDidMount() {
+    const newMessages = msgGengerator(20, this.state.members.map(member => member.id));
+    // console.log(newMessages);
+    this.addMessages(newMessages);
   }
 
   render() {
+    console.log(this.state);
     const { state } = this;
     const messages = state.messages || [];
     return (
       <div className="room-container">
+        <MembersBox
+          members={state.members}
+        />
         <MessageBox>
           {
             messages.map((msg, i) => {
-              console.log("msg:", msg);
               return (
                 <Message
-                  avatar={msg.avatar}
+                  avatar={this.getAvatar(msg.id)}
                   text={msg.text}
                   key={i}
                 />
@@ -62,7 +116,7 @@ class RoomA extends Component {
           }
         </MessageBox>
         <MessageInput
-          sendText={this.sendText}
+          sendText={this.sendMyText}
         />
       </div>
     );
