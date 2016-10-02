@@ -44,7 +44,6 @@ export default class Debug extends Component {
   }
 
   render() {
-    const { props } = this;
     return (
       <div className="debug-container">
         <div className="btn" onClick={this.add100Msgs}>Add 100 messages</div>
