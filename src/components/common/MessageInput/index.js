@@ -9,7 +9,7 @@ export default class MessageBox extends Component {
   }
 
   handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
       if (this.state.text === '') { return }
       console.log(this.state.text);
