@@ -5,6 +5,8 @@
   overflow-x: hidden;
   overflow-y: scroll;
 
+  background: #F8EEE7;
+
   .message-scroll-div {
   }
 }
