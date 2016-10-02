@@ -91,12 +91,18 @@ class RoomA extends Component {
   }
 
   componentWillMount() {
-    this.addUsers(makeUser(10));
   }
+
   componentDidMount() {
-    const newMessages = msgGengerator(20, this.state.members.map(member => member.id));
+    // const newMessages = msgGengerator(20, this.state.members.map(member => member.id));
     // console.log(newMessages);
-    this.addMessages(newMessages);
+    // this.addMessages(newMessages);
+    this.scrollToBottom();
+  }
+
+  scrollToBottom = () => {
+    const objDiv = document.getElementById("scroller");
+    objDiv.scrollTop = objDiv.scrollHeight;
   }
 
   render() {
@@ -105,6 +111,11 @@ class RoomA extends Component {
     const messages = state.messages || [];
     return (
       <div className="room-container">
+        <Debug
+          memberIds={this.state.members.map(member => member.id)}
+          addMsgs={this.addMessages}
+          addUsers={this.addUsers}
+        />
         <MembersBox
           members={state.members}
         />
@@ -124,11 +135,6 @@ class RoomA extends Component {
         </MessageBox>
         <MessageInput
           sendText={this.sendMyText}
-        />
-        <Debug
-          memberIds={this.state.members.map(member => member.id)}
-          addMsgs={this.addMessages}
-          addUsers={this.addUsers}
         />
       </div>
     );
