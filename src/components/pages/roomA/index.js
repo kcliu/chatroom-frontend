@@ -6,6 +6,7 @@ import MessageBox from '../../common/MessageBox/index.js';
 import MessageInput from '../../common/MessageInput/index.js';
 import Message from '../..//common/Message/index.js';
 import MembersBox from '../../common/MembersBox/index.js';
+import Debug from '../../common/Debug/index.js';
 
 import './styles.css';
 
@@ -71,7 +72,7 @@ class RoomA extends Component {
 
   sendMyText = this.sendText(this.state.me.id)
 
-  addUser = (users) => {
+  addUsers = (users) => {
     // console.log("addUser:", users);
     this.setState({
       members: this.state.members.concat(users),
@@ -90,7 +91,7 @@ class RoomA extends Component {
   }
 
   componentWillMount() {
-    this.addUser(makeUser(10));
+    this.addUsers(makeUser(10));
   }
   componentDidMount() {
     const newMessages = msgGengerator(20, this.state.members.map(member => member.id));
@@ -123,6 +124,11 @@ class RoomA extends Component {
         </MessageBox>
         <MessageInput
           sendText={this.sendMyText}
+        />
+        <Debug
+          memberIds={this.state.members.map(member => member.id)}
+          addMsgs={this.addMessages}
+          addUsers={this.addUsers}
         />
       </div>
     );
