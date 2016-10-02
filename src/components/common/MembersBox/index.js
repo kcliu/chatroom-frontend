@@ -12,7 +12,7 @@ export default class MembersBox extends Component {
         {
           props.members.map(member => {
             return (
-              <div className="member-wrapper">
+              <div className="member-wrapper animated fadeIn">
                 <img src={member.avatar} alt='member' />
               </div>
             )
