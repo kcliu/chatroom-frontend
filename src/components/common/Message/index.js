@@ -11,7 +11,7 @@ export default class MessageBox extends Component {
     const { props, state } = this;
     const avatar = props.avatar ? props.avatar : state.deafultAvatar;
     return (
-      <div className="message-wrapper">
+      <div className="message-wrapper animated fadeIn">
         <div className="img-wrapper">
           <img src={avatar} alt='avatar'/>
         </div>
